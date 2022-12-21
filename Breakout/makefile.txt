@@ -1,0 +1,26 @@
+OBJS	= main.o breakout.o gameRender.o menu.o
+SOURCE	= main.c breakout.c gameRender.c menu.c
+HEADER	= breakoutHead.h include.h
+OUT	= breakout
+CC	 = gcc
+FLAGS	 = -g -c -Wall
+LFLAGS	 = 
+
+all: $(OBJS)
+	$(CC) -g $(OBJS) -o $(OUT) $(LFLAGS)
+
+main.o: main.c
+	$(CC) $(FLAGS) main.c 
+
+breakout.o: breakout.c
+	$(CC) $(FLAGS) breakout.c 
+
+gameRender.o: gameRender.c
+	$(CC) $(FLAGS) gameRender.c 
+
+menu.o: menu.c
+	$(CC) $(FLAGS) menu.c 
+
+
+clean:
+	rm -f $(OBJS) $(OUT)

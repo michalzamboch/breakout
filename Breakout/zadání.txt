@@ -1,0 +1,108 @@
+Hra pomocí knihovny SDL
+Breakout
+
+Pozice blokù bude naètena z textového souboru (formát je na vás).
+Hráè se mùe hıbat se svım pádlem a odpalovat míèky.
+Na zaèátku nebo po ztrátì míèku hráè vystøelí míèek z pozice pádla.
+Pokud míèek vyletí ven dolním okrajem herní plochy, hráè pøichází o míèek.
+Míèek po dotyku s blokem ubere bloku ivot, pokud bloku dojde ivot, tak blok zmizí.
+Hráè vyhrává, pokud se mu podaøí odstranit všechny bloky døíve, ne mu dojdou všechny míèky.
+
+---------------------------------------------------------------------------------------------
+
+Poznámky k øešení
+Nabídnìte ve høe hráèovi úvodní menu,
+kde si vybere konfiguraci hry.
+
+---------------------------------------------------------------------------------------------
+
+Projekt rozumnì rozdìlte do více .c/.h souborù a vytvoøte k nìmu bash skript,
+Makefile nebo CMakeLists.txt soubor,
+aby šel projekt pøeloit i na jiném poèítaèi (viz automatizace pøekladu).
+Vytvoøte jednoduchı README soubor, kterı bude popisovat, jak program funguje a jak ho pøeloit.
+Pøi vıvoji pouívejte Address sanitizer! Velmi vám to usnadní detekci pamìovıch chyb.
+Odevzdanı program nesmí pøi pouití Address sanitizeru vyvolat ádné pamìové chyby.
+Pøi pouití knihovny SDL se mùe stát, e Address sanitizer ohlásí nìjaké memory leaky, které nebudou souviset s vaším programem.
+Ty mùete ignorovat.
+
+---------------------------------------------------------------------------------------------
+
+Bonusovı úkol: Uchovávejte seznam nejlepších skóre hráèe v souboru a zobrazte ho pøi spuštìní hry.
+
+---------------------------------------------------------------------------------------------
+
+Konzultace a odevzdávání
+Pøípadné nejasnosti v zadání a Vaše øešení prùbìnì konzultujte se svım cvièícím,
+abyste pøedešli pøípadnım nedorozumìním v interpretaci vısledku.
+Øešení prùbìnì nahrávejte do systému Kelvin.
+
+--------------------------------
+TTF_Font* Sans = TTF_OpenFont("Sans.ttf", 24); //this opens a font style and sets a size
+
+SDL_Color White = {255, 255, 255};  // this is the color in rgb format, maxing out all would give you the color white, and it will be your text's color
+
+SDL_Surface* surfaceMessage = TTF_RenderText_Solid(Sans, "put your text here", White); // as TTF_RenderText_Solid could only be used on SDL_Surface then you have to create the surface first
+
+SDL_Texture* Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage); //now you can convert it into a texture
+
+SDL_Rect Message_rect; //create a rect
+Message_rect.x = 0;  //controls the rect's x coordinate 
+Message_rect.y = 0; // controls the rect's y coordinte
+Message_rect.w = 100; // controls the width of the rect
+Message_rect.h = 100; // controls the height of the rect
+
+//Mind you that (0,0) is on the top left of the window/screen, think a rect as the text's box, that way it would be very simple to understand
+
+//Now since it's a texture, you have to put RenderCopy in your game loop area, the area where the whole code executes
+
+SDL_RenderCopy(renderer, Message, NULL, &Message_rect); //you put the renderer's name first, the Message, the crop size(you can ignore this if you don't want to dabble with cropping), and the rect which is the size and coordinate of your texture
+
+//Don't forget to free your surface and texture
+SDL_FreeSurface(surfaceMessage);
+SDL_DestroyTexture(Message);
+
+
+--------------------------------------------------------------------
+
+/*
+Syntax
+
+Toggle line numbers
+const Uint8* SDL_GetKeyboardState(int* numkeys)
+Function Parameters
+numkeys
+
+if non-NULL, receives the length of the returned array
+
+Return Value
+Returns a pointer to an array of key states.
+A value of 1 means that the key is pressed and a value of 0 means that it is not.
+Indexes into this array are obtained by using SDL_Scancode values.
+The pointer returned is a pointer to an internal SDL array.
+It will be valid for the whole lifetime of the application and should not be freed by the caller.
+
+Code Examples
+
+Toggle line numbers
+const Uint8 *state = SDL_GetKeyboardState(NULL);
+if (state[SDL_SCANCODE_RETURN]) {
+	printf("<RETURN> is pressed.\n");
+}
+if (state[SDL_SCANCODE_RIGHT] && state[SDL_SCANCODE_UP]) {
+	printf("Right and Up Keys Pressed.\n");
+}
+
+"Up" (the Up arrow key (navigation keypad)) - SDL_SCANCODE_UP - SDLK_UP
+"Down" (the Down arrow key (navigation keypad)) - SDL_SCANCODE_DOWN - SDLK_DOWN
+"Left" (the Left arrow key (navigation keypad)) - SDL_SCANCODE_LEFT - SDLK_LEFT
+"Right" (the Right arrow key (navigation keypad)) - SDL_SCANCODE_RIGHT - SDLK_RIGHT
+
+------------------------------------------------------------------------
+
+Uint32 - type - the event type; SDL_KEYDOWN or SDL_KEYUP
+Uint32 - timestamp - timestamp of the event
+Uint32 - windowID - the window with keyboard focus, if any
+Uint8 - state - the state of the key; SDL_PRESSED or SDL_RELEASED
+Uint8 - repeat - non-zero if this is a key repeat
+SDL_Keysym - keysym - the SDL_Keysym representing the key that was pressed or released
+*/

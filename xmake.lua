@@ -4,9 +4,17 @@ add_requires("libsdl", "libsdl_ttf")
 
 target("breakout")
     set_kind("binary")
+
     add_files("src/*.c")
     add_packages("libsdl", "libsdl_ttf")
     add_includedirs("include")
+    
+    after_build(function (target)
+        print("\nTarget: %s", target:name())
+        print("Target file: %s", target:targetfile())
+        os.cp("fonts", path.join(target:targetdir()))
+    end)
+
 --
 -- If you want to known more usage about xmake, please see https://xmake.io
 --

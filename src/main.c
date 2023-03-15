@@ -1,20 +1,20 @@
 #include "include.h"
 
-extern void menu(SDL_Renderer* vykresleni);
+extern void menu(SDL_Renderer *vykresleni);
 
 int nahodneCislo(int from, int to);
-void kontrola(void* soubor, char report[]);
+void kontrola(void *soubor, char report[]);
 void pockejNaStiskKlavesy();
-bool prekrocilCas(interval* porovnavany);
+bool prekrocilCas(interval *porovnavany);
 interval nastvavInterval(unsigned int jakDlouho);
 
 int main(int argc, char *args[])
 {
     srand((unsigned int)time(NULL));
 
-    SDL_Window* okno = NULL;
-    SDL_Renderer* vykresleni = NULL;
-    
+    SDL_Window *okno = NULL;
+    SDL_Renderer *vykresleni = NULL;
+
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
     {
         printf("SDL se nemohlo inicializovat! SDL_Error: %s\n", SDL_GetError());
@@ -32,7 +32,7 @@ int main(int argc, char *args[])
             vykresleni = SDL_CreateRenderer(okno, -1, 0);
         }
     }
-    
+
     if (TTF_Init() == -1)
     {
         printf("Nastala chyba pri inicializaci pisma...\n");
@@ -45,7 +45,6 @@ int main(int argc, char *args[])
     menu(vykresleni);
 
     /*****/
-    
 
     if (vykresleni)
     {
@@ -57,13 +56,13 @@ int main(int argc, char *args[])
     }
     TTF_Quit();
     SDL_Quit();
-    
+
     return 0;
 }
 
-/************************** DOPLÒKOVÉ FUNKCE **********************************/
+/************************** DOPLï¿½KOVï¿½ FUNKCE **********************************/
 
-void kontrola(void * soubor, char report[])
+void kontrola(void *soubor, char report[])
 {
     if (soubor == NULL)
     {
@@ -110,7 +109,7 @@ void pockejNaStiskKlavesy()
     while (odejit == false)
     {
         SDL_WaitEvent(&udalost);
-        const Uint8* state = SDL_GetKeyboardState(NULL);
+        const Uint8 *state = SDL_GetKeyboardState(NULL);
 
         if (prekrocilCas(&cyklusCas) == true)
         {
@@ -124,7 +123,7 @@ void pockejNaStiskKlavesy()
 
 /*******************************************************/
 
-bool prekrocilCas(interval* porovnavany)
+bool prekrocilCas(interval *porovnavany)
 {
     if ((SDL_GetTicks() - porovnavany->soucasnaHodnota) > porovnavany->interval)
     {

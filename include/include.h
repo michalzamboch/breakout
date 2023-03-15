@@ -7,15 +7,12 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 
-#pragma warning(disable : 4996)
-
 #define vyska_d 600
 #define sirka_d 400
 
 #define strana_balonku 8
 #define start_x_balonek 200
 #define start_y_balonek 550
-
 
 #define max_x (sirka_d - strana_balonku)
 #define min_x 0
@@ -39,30 +36,41 @@ typedef struct
 	SDL_Rect souradnice;
 	SDL_Color barva;
 	bool aktivni;
-}blok;
+} blok;
 
 typedef struct
 {
 	SDL_Rect souradnice;
 	SDL_Color barva;
 	int posunutiPlosinky;
-}plosinka;
+} plosinka;
 
-typedef enum { up, down, right, left }smer;
+typedef enum
+{
+	up,
+	down,
+	right,
+	left
+} smer;
 
 typedef struct
 {
 	int zivoty;
 	int body;
-}hrac;
+} hrac;
 
 typedef struct
 {
 	int sirkaPlosiny;
 	int zivoty;
-}obtiznost;
+} obtiznost;
 
-typedef enum { lehka, stredni, tezka } urovneObtiznosti;
+typedef enum
+{
+	lehka,
+	stredni,
+	tezka
+} urovneObtiznosti;
 
 typedef struct
 {
@@ -70,24 +78,30 @@ typedef struct
 	SDL_Rect souradnice;
 	int rychlostX;
 	int rychlostY;
-}balonek;
+} balonek;
 
-typedef enum { nahore, dole, vpravo, vlevo } mistoKolize;
+typedef enum
+{
+	nahore,
+	dole,
+	vpravo,
+	vlevo
+} mistoKolize;
 
 typedef struct
 {
 	unsigned int interval;
 	unsigned int soucasnaHodnota;
-}interval;
+} interval;
 
 typedef struct
 {
 	SDL_Rect souradnice;
 	int pozice;
-}ukazatel;
+} ukazatel;
 
 typedef struct
 {
 	SDL_Color barva;
 	SDL_Rect souradnice;
-}dokresleni;
+} dokresleni;

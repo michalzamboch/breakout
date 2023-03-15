@@ -6,15 +6,15 @@ posun balonek
 vyhodnot kolize - zmena rychlostX a rychlostY
 pokud je to nutne - proved upravy hry - ???
 */
-void breakout(obtiznost* obtiznostVar, SDL_Renderer* vykresleni)
+void breakout(obtiznost *obtiznostVar, SDL_Renderer *vykresleni)
 {
 	int pocetBloku = 50;
 	printf("Game start...\n");
 
-	blok* herniBloky = vytvorPoleBloku(pocetBloku);
-	hrac* hracVar = vytvorHrace(obtiznostVar->zivoty);
-	balonek* balonekVar = vytvorBalonek(start_x_balonek, start_y_balonek, startXRychlost(), startYRychlost());
-	plosinka* plosinkaVar = vytvorPlosinku(190, 570, zakladni_posunuti, obtiznostVar->sirkaPlosiny);
+	blok *herniBloky = vytvorPoleBloku(pocetBloku);
+	hrac *hracVar = vytvorHrace(obtiznostVar->zivoty);
+	balonek *balonekVar = vytvorBalonek(start_x_balonek, start_y_balonek, startXRychlost(), startYRychlost());
+	plosinka *plosinkaVar = vytvorPlosinku(190, 570, zakladni_posunuti, obtiznostVar->sirkaPlosiny);
 
 	interval cyklusCas = nastvavInterval(55);
 	bool odejit = false;
@@ -36,7 +36,7 @@ void breakout(obtiznost* obtiznostVar, SDL_Renderer* vykresleni)
 			}
 
 			odejit = ovladani(plosinkaVar, vykresleni);
-			
+
 			smazBalonek(*balonekVar, vykresleni);
 			posunBalonek(balonekVar);
 			vykresliBalonek(*balonekVar, vykresleni);
@@ -51,13 +51,13 @@ void breakout(obtiznost* obtiznostVar, SDL_Renderer* vykresleni)
 	smazObrazovku(vykresleni);
 }
 
-static bool ovladani(plosinka* plosinkaVar, SDL_Renderer* vykresleni)
+static bool ovladani(plosinka *plosinkaVar, SDL_Renderer *vykresleni)
 {
 	bool odejit = false;
 	SDL_Event udalost;
 
 	SDL_PollEvent(&udalost);
-	const Uint8* state = SDL_GetKeyboardState(NULL);
+	const Uint8 *state = SDL_GetKeyboardState(NULL);
 
 	if (state[SDL_SCANCODE_RIGHT])
 	{
@@ -68,7 +68,7 @@ static bool ovladani(plosinka* plosinkaVar, SDL_Renderer* vykresleni)
 	if (state[SDL_SCANCODE_LEFT])
 	{
 		smazPlosinku(*plosinkaVar, vykresleni);
-		posunPlosinku(plosinkaVar->posunutiPlosinky  * (-1), plosinkaVar);
+		posunPlosinku(plosinkaVar->posunutiPlosinky * (-1), plosinkaVar);
 		vykresliPlosinku(*plosinkaVar, vykresleni);
 	}
 	if (state[SDL_SCANCODE_ESCAPE])
@@ -119,7 +119,7 @@ static void nastavBlok(int x, int y, bool aktivita, SDL_Color barva, blok *blokX
 
 static blok *vytvorPoleBloku(int pocet)
 {
-	blok* tmpBloky = (blok*)malloc(pocet * sizeof(blok));
+	blok *tmpBloky = (blok *)malloc(pocet * sizeof(blok));
 	kontrola((void *)tmpBloky, "Nastala chyba, pri konstruovani bloku\n");
 
 	int i;
@@ -131,14 +131,14 @@ static blok *vytvorPoleBloku(int pocet)
 	{
 		nastavBlok(tmpX, tmpY, true, tmpBarva, tmpBloky);
 		tmpX += sirka_bloku;
-		
+
 		if (((i + 1) % delitel) == 0)
 		{
 			tmpBarva = nastvavBarvu(nahodneCislo(0, 255), nahodneCislo(0, 255), nahodneCislo(0, 255));
 			tmpY += vyska_bloku + 1;
 			tmpX = 0;
 		}
-		
+
 		tmpBloky++;
 	}
 	tmpBloky -= pocet;
@@ -146,7 +146,7 @@ static blok *vytvorPoleBloku(int pocet)
 	return tmpBloky;
 }
 
-static int pocetAktivnichBloku(blok* bloky, int pocetVsechBloku)
+static int pocetAktivnichBloku(blok *bloky, int pocetVsechBloku)
 {
 	int i;
 	int pocet = 0;
@@ -161,15 +161,15 @@ static int pocetAktivnichBloku(blok* bloky, int pocetVsechBloku)
 	return pocet;
 }
 
-static void uvolniVsechnyBloky(blok* bloky)
+static void uvolniVsechnyBloky(blok *bloky)
 {
 	free(bloky);
 	bloky = NULL;
 }
 
-/****************************** PLOŠINA ***********************************/
+/****************************** PLOï¿½INA ***********************************/
 
-static void nastavPlosinku(int x, int y, int delka, int posunuti, plosinka* pl)
+static void nastavPlosinku(int x, int y, int delka, int posunuti, plosinka *pl)
 {
 	pl->souradnice.x = x;
 	pl->souradnice.y = y;
@@ -181,7 +181,7 @@ static void nastavPlosinku(int x, int y, int delka, int posunuti, plosinka* pl)
 	pl->barva = nastvavBarvu(255, 255, 255);
 }
 
-static void posunPlosinku(int posunO, plosinka* pl)
+static void posunPlosinku(int posunO, plosinka *pl)
 {
 	if ((pl->souradnice.x + pl->souradnice.w + posunO) > sirka_d)
 	{
@@ -197,17 +197,17 @@ static void posunPlosinku(int posunO, plosinka* pl)
 	}
 }
 
-static plosinka* vytvorPlosinku(int x, int y, int posunuti, int delka)
+static plosinka *vytvorPlosinku(int x, int y, int posunuti, int delka)
 {
-	plosinka* tmp = (plosinka*)malloc(sizeof(plosinka));
-	kontrola((void*)tmp, "Nastala chyba, pri konstruovani plosinky\n");
-	
+	plosinka *tmp = (plosinka *)malloc(sizeof(plosinka));
+	kontrola((void *)tmp, "Nastala chyba, pri konstruovani plosinky\n");
+
 	nastavPlosinku(x, y, delka, posunuti, tmp);
 
 	return tmp;
 }
 
-static void uvolniPlosinku(plosinka* pl)
+static void uvolniPlosinku(plosinka *pl)
 {
 	free(pl);
 	pl = NULL;
@@ -215,33 +215,33 @@ static void uvolniPlosinku(plosinka* pl)
 
 /***************************** HRAC ************************************/
 
-static void zapisDoHrace(int zivoty, int body, hrac* player)
+static void zapisDoHrace(int zivoty, int body, hrac *player)
 {
 	player->zivoty = zivoty;
 	player->body = body;
 }
 
-static void prictiBody(hrac* player)
+static void prictiBody(hrac *player)
 {
 	zapisDoHrace(player->zivoty, player->body + prictene_body, player);
 }
 
-static void odectiZivot(hrac* player)
+static void odectiZivot(hrac *player)
 {
 	zapisDoHrace(player->zivoty - 1, player->body, player);
 }
 
-static hrac* vytvorHrace(int zivoty)
+static hrac *vytvorHrace(int zivoty)
 {
-	hrac* player = (hrac*)malloc(sizeof(hrac));
-	kontrola((void*)player, "Chyba pri konstrukci hrace!\n");
+	hrac *player = (hrac *)malloc(sizeof(hrac));
+	kontrola((void *)player, "Chyba pri konstrukci hrace!\n");
 
 	zapisDoHrace(zivoty, 0, player);
 
 	return player;
 }
 
-static void uvolniHrace(hrac* player)
+static void uvolniHrace(hrac *player)
 {
 	free(player);
 	player = NULL;
@@ -249,10 +249,10 @@ static void uvolniHrace(hrac* player)
 
 /***************************** VYHODNCENI HRY ************************************/
 
-static void zadneZivotyHlaseni(SDL_Renderer* vykresleni)
+static void zadneZivotyHlaseni(SDL_Renderer *vykresleni)
 {
 	smazObrazovku(vykresleni);
-	
+
 	int x = 10;
 	vypisText(x, 20, "Prohral jsi.", vykresleni);
 	vypisText(x, 80, "Dosly ti zivoty.", vykresleni);
@@ -260,7 +260,7 @@ static void zadneZivotyHlaseni(SDL_Renderer* vykresleni)
 	pockejNaStiskKlavesy();
 }
 
-static void zadneKostkyHlaseni(SDL_Renderer* vykresleni, int body)
+static void zadneKostkyHlaseni(SDL_Renderer *vykresleni, int body)
 {
 	smazObrazovku(vykresleni);
 
@@ -276,7 +276,7 @@ static void zadneKostkyHlaseni(SDL_Renderer* vykresleni, int body)
 	pockejNaStiskKlavesy();
 }
 
-static bool kontrolaHry(hrac* player, blok *bloky, int pocetBloku, SDL_Renderer* vykresleni)
+static bool kontrolaHry(hrac *player, blok *bloky, int pocetBloku, SDL_Renderer *vykresleni)
 {
 	bool konec = false;
 	if (pocetAktivnichBloku(bloky, pocetBloku) <= 0)
@@ -293,7 +293,7 @@ static bool kontrolaHry(hrac* player, blok *bloky, int pocetBloku, SDL_Renderer*
 	return konec;
 }
 
-/***************************** BALÓNEK ************************************/
+/***************************** BALÃ“NEK ************************************/
 
 static int startXRychlost()
 {
@@ -314,59 +314,59 @@ static void nastavBalonek(int x, int y, int rychlostX, int rychlostY, balonek *b
 
 	ball->rychlostX = rychlostX;
 	ball->rychlostY = rychlostY;
-	
+
 	ball->barva = nastvavBarvu(255, 255, 255);
 }
 
 /**********/
-static void doluBalonek(balonek* ball)
+static void doluBalonek(balonek *ball)
 {
 	ball->rychlostY = abs(ball->rychlostY);
 }
 
-static void nahoruBalonek(balonek* ball)
+static void nahoruBalonek(balonek *ball)
 {
 	ball->rychlostY = abs(ball->rychlostY) * (-1);
 }
 
-static void doLevaBalonek(balonek* ball)
+static void doLevaBalonek(balonek *ball)
 {
 	ball->rychlostX = abs(ball->rychlostX) * (-1);
 }
 
-static void doPravaBalonek(balonek* ball)
+static void doPravaBalonek(balonek *ball)
 {
 	ball->rychlostX = abs(ball->rychlostX);
 }
 
-static void negaceXBalonek(balonek* ball)
+static void negaceXBalonek(balonek *ball)
 {
 	ball->rychlostX = ball->rychlostX * (-1);
 }
 
-static void negaceYBalonek(balonek* ball)
+static void negaceYBalonek(balonek *ball)
 {
 	ball->rychlostY = ball->rychlostY * (-1);
 }
 /**********/
 
-static void posunBalonek(balonek* ball)
+static void posunBalonek(balonek *ball)
 {
 	ball->souradnice.x += ball->rychlostX;
 	ball->souradnice.y += ball->rychlostY;
 }
 
-static balonek* vytvorBalonek(int x, int y, int rychlostX, int rychlostY)
+static balonek *vytvorBalonek(int x, int y, int rychlostX, int rychlostY)
 {
-	balonek* tmp = (balonek*)malloc(sizeof(balonek));
-	kontrola((void*)tmp, "Chyba pri kontrukci balonku!\n");
+	balonek *tmp = (balonek *)malloc(sizeof(balonek));
+	kontrola((void *)tmp, "Chyba pri kontrukci balonku!\n");
 
 	nastavBalonek(x, y, rychlostX, rychlostY, tmp);
 
 	return tmp;
 }
 
-static void uvolniBalonek(balonek* ball)
+static void uvolniBalonek(balonek *ball)
 {
 	free(ball);
 	ball = NULL;
@@ -374,29 +374,20 @@ static void uvolniBalonek(balonek* ball)
 
 /****************************** KOLIZE ***********************************/
 
-/*
-SDL_bool SDL_HasIntersection(const SDL_Rect* A,
-							 const SDL_Rect* B);
-
-SDL_bool SDL_IntersectRect(const SDL_Rect* A,
-						   const SDL_Rect* B,
-						   SDL_Rect*       result);
-*/
-
-static void kontrolaKolizi(balonek* ball, plosinka* plosinkaVar, hrac *player, blok* bloky, int pocetBloku, SDL_Renderer* vykresleni)
+static void kontrolaKolizi(balonek *ball, plosinka *plosinkaVar, hrac *player, blok *bloky, int pocetBloku, SDL_Renderer *vykresleni)
 {
 	dokresleni tmp;
-	
+
 	kolizeSeStenami(ball, player, vykresleni);
 	tmp = kolizeSBloky(ball, player, bloky, pocetBloku, vykresleni);
 	vykresliObjekt(tmp, vykresleni);
 	tmp = kolizeSPlosinkou(ball, plosinkaVar, vykresleni);
-	//vykresliObjekt(tmp, vykresleni);
+	// vykresliObjekt(tmp, vykresleni);
 }
 
-static dokresleni kolizeSeStenami(balonek* ball, hrac* player, SDL_Renderer* vykresleni)
+static dokresleni kolizeSeStenami(balonek *ball, hrac *player, SDL_Renderer *vykresleni)
 {
-	dokresleni x = { nastvavBarvu(0,0,0), nastvavSouradnice(0,0,0,0) };
+	dokresleni x = {nastvavBarvu(0, 0, 0), nastvavSouradnice(0, 0, 0, 0)};
 	if (ball->souradnice.x <= min_x)
 	{
 		doPravaBalonek(ball);
@@ -419,7 +410,7 @@ static dokresleni kolizeSeStenami(balonek* ball, hrac* player, SDL_Renderer* vyk
 	return x;
 }
 
-static dokresleni kolizeSBloky(balonek* ball, hrac* player, blok* bloky, int pocetBloku, SDL_Renderer* vykresleni)
+static dokresleni kolizeSBloky(balonek *ball, hrac *player, blok *bloky, int pocetBloku, SDL_Renderer *vykresleni)
 {
 	SDL_Rect stycnaPlocha;
 	dokresleni mazaneBloky;
@@ -447,7 +438,7 @@ static dokresleni kolizeSBloky(balonek* ball, hrac* player, blok* bloky, int poc
 	return mazaneBloky;
 }
 
-static void mistoKolizeFce(balonek * ball, SDL_Rect mistoStretu)
+static void mistoKolizeFce(balonek *ball, SDL_Rect mistoStretu)
 {
 	if (mistoStretu.h > mistoStretu.w)
 	{
@@ -459,7 +450,7 @@ static void mistoKolizeFce(balonek * ball, SDL_Rect mistoStretu)
 	}
 }
 
-static dokresleni kolizeSPlosinkou(balonek* ball, plosinka* plosinkaVar, SDL_Renderer* vykresleni)
+static dokresleni kolizeSPlosinkou(balonek *ball, plosinka *plosinkaVar, SDL_Renderer *vykresleni)
 {
 	dokresleni dokresleniPlosinky;
 	dokresleniPlosinky.barva = nastvavBarvu(255, 255, 255);
@@ -467,7 +458,7 @@ static dokresleni kolizeSPlosinkou(balonek* ball, plosinka* plosinkaVar, SDL_Ren
 
 	SDL_Rect stycnaPlocha;
 	bool stretliSe = SDL_IntersectRect(&ball->souradnice, &plosinkaVar->souradnice, &stycnaPlocha);
-	
+
 	if (stretliSe == true)
 	{
 		nahoruBalonek(ball);
@@ -479,7 +470,7 @@ static dokresleni kolizeSPlosinkou(balonek* ball, plosinka* plosinkaVar, SDL_Ren
 
 /*****************************************************************/
 
-static void aktualizujInfoHrace(hrac* player, SDL_Renderer* vykresleni)
+static void aktualizujInfoHrace(hrac *player, SDL_Renderer *vykresleni)
 {
 	dokresleni objekt;
 	objekt.barva = nastvavBarvu(0, 0, 0);
@@ -493,7 +484,7 @@ static void aktualizujInfoHrace(hrac* player, SDL_Renderer* vykresleni)
 	char zivotyStr[3];
 	itoa(player->zivoty, zivotyStr, 10);
 	vypisText(75, 5, zivotyStr, vykresleni);
-	
+
 	char bodyStr[10];
 	itoa(player->body, bodyStr, 10);
 	vypisText(250, 5, bodyStr, vykresleni);

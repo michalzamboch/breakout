@@ -12,7 +12,7 @@ target("breakout")
     after_build(function (target)
         print("\nTarget: %s", target:name())
         print("Target file: %s", target:targetfile())
-        os.cp("fonts", path.join(target:targetdir()))
+        os.cp("fonts", target:targetdir())
     end)
 
 --

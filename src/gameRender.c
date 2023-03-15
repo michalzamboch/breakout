@@ -83,8 +83,7 @@ void vypisText(int x, int y, char *text, SDL_Renderer *vykresleni)
     if (Sans == NULL)
     {
         printf("Failed to load lazy font! SDL_ttf Error: %s\n", TTF_GetError());
-        getchar();
-        exit(-5);
+        exit(1);
     }
 
     SDL_Color White = nastvavBarvu(255, 255, 255);

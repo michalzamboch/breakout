@@ -95,7 +95,7 @@ void vypisText(int x, int y, char *text, SDL_Renderer *vykresleni)
     Message_rect.x = x;
     Message_rect.y = y;
     Message_rect.h = 40;
-    Message_rect.w = strlen(text) * 20;
+    Message_rect.w = (int)strlen(text) * 20;
 
     SDL_RenderCopy(vykresleni, Message, NULL, &Message_rect);
     SDL_RenderPresent(vykresleni);

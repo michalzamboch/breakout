@@ -1,4 +1,6 @@
 add_rules("mode.debug", "mode.release")
+set_languages("c11")
+set_warnings("all", "error")
 
 add_requires("libsdl", "libsdl_ttf")
 

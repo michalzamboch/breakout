@@ -270,7 +270,7 @@ static void zadneKostkyHlaseni(SDL_Renderer *vykresleni, int body)
     vypisText(x, 110, "Pocet bodu:", vykresleni);
 
     char bodyStr[10];
-    itoa(body, bodyStr, 10);
+    sprintf_s(bodyStr, 10, "%d", body);
     vypisText(x, 150, bodyStr, vykresleni);
 
     pockejNaStiskKlavesy();
@@ -482,10 +482,10 @@ static void aktualizujInfoHrace(hrac *player, SDL_Renderer *vykresleni)
     vykresliObjekt(objekt, vykresleni);
 
     char zivotyStr[3];
-    itoa(player->zivoty, zivotyStr, 10);
+    sprintf_s(zivotyStr, 3, "%d", player->zivoty);
     vypisText(75, 5, zivotyStr, vykresleni);
 
     char bodyStr[10];
-    itoa(player->body, bodyStr, 10);
+    sprintf_s(bodyStr, 10, "%d", player->body);
     vypisText(250, 5, bodyStr, vykresleni);
 }

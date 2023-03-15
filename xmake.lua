@@ -6,6 +6,7 @@ target("breakout")
     set_kind("binary")
     add_files("src/*.c")
     add_packages("libsdl", "libsdl_ttf")
+    add_includedirs("include")
 --
 -- If you want to known more usage about xmake, please see https://xmake.io
 --

@@ -33,75 +33,75 @@
 
 typedef struct
 {
-	SDL_Rect souradnice;
-	SDL_Color barva;
-	bool aktivni;
+    SDL_Rect souradnice;
+    SDL_Color barva;
+    bool aktivni;
 } blok;
 
 typedef struct
 {
-	SDL_Rect souradnice;
-	SDL_Color barva;
-	int posunutiPlosinky;
+    SDL_Rect souradnice;
+    SDL_Color barva;
+    int posunutiPlosinky;
 } plosinka;
 
 typedef enum
 {
-	up,
-	down,
-	right,
-	left
+    up,
+    down,
+    right,
+    left
 } smer;
 
 typedef struct
 {
-	int zivoty;
-	int body;
+    int zivoty;
+    int body;
 } hrac;
 
 typedef struct
 {
-	int sirkaPlosiny;
-	int zivoty;
+    int sirkaPlosiny;
+    int zivoty;
 } obtiznost;
 
 typedef enum
 {
-	lehka,
-	stredni,
-	tezka
+    lehka,
+    stredni,
+    tezka
 } urovneObtiznosti;
 
 typedef struct
 {
-	SDL_Color barva;
-	SDL_Rect souradnice;
-	int rychlostX;
-	int rychlostY;
+    SDL_Color barva;
+    SDL_Rect souradnice;
+    int rychlostX;
+    int rychlostY;
 } balonek;
 
 typedef enum
 {
-	nahore,
-	dole,
-	vpravo,
-	vlevo
+    nahore,
+    dole,
+    vpravo,
+    vlevo
 } mistoKolize;
 
 typedef struct
 {
-	unsigned int interval;
-	unsigned int soucasnaHodnota;
+    unsigned int interval;
+    unsigned int soucasnaHodnota;
 } interval;
 
 typedef struct
 {
-	SDL_Rect souradnice;
-	int pozice;
+    SDL_Rect souradnice;
+    int pozice;
 } ukazatel;
 
 typedef struct
 {
-	SDL_Color barva;
-	SDL_Rect souradnice;
+    SDL_Color barva;
+    SDL_Rect souradnice;
 } dokresleni;

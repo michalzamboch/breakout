@@ -270,7 +270,7 @@ static void zadneKostkyHlaseni(SDL_Renderer *vykresleni, int body)
     vypisText(x, 110, "Pocet bodu:", vykresleni);
 
     char bodyStr[10];
-    sprintf_s(bodyStr, 10, "%d", body);
+    intToString(bodyStr, 10, body);
     vypisText(x, 150, bodyStr, vykresleni);
 
     pockejNaStiskKlavesy();
@@ -482,10 +482,19 @@ static void aktualizujInfoHrace(hrac *player, SDL_Renderer *vykresleni)
     vykresliObjekt(objekt, vykresleni);
 
     char zivotyStr[3];
-    sprintf_s(zivotyStr, 3, "%d", player->zivoty);
+    intToString(zivotyStr, 3, player->zivoty);
     vypisText(75, 5, zivotyStr, vykresleni);
 
     char bodyStr[10];
-    sprintf_s(bodyStr, 10, "%d", player->body);
+    intToString(bodyStr, 10, player->body);
     vypisText(250, 5, bodyStr, vykresleni);
+}
+
+static void intToString(char *const retezec, const int delka, int cislo)
+{
+#ifdef __linux__
+    sprintf(retezec, "%d", cislo);
+#elif _WIN32
+    sprintf_s(retezec, delka, "%d", cislo);
+#endif
 }

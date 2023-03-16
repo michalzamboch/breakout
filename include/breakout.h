@@ -68,6 +68,8 @@ static dokresleni kolizeSPlosinkou(balonek *ball, plosinka *plosinkaVar, SDL_Ren
 
 static void aktualizujInfoHrace(hrac *player, SDL_Renderer *vykresleni);
 
+static void intToString(char *const retezec, const int delka, int cislo);
+
 SDL_Color nastvavBarvu(int r, int g, int b);
 SDL_Rect nastvavSouradnice(int x, int y, int w, int h);
 

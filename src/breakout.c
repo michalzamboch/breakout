@@ -492,9 +492,9 @@ static void aktualizujInfoHrace(hrac *player, SDL_Renderer *vykresleni)
 
 static void intToString(char *const retezec, const int delka, int cislo)
 {
-#ifdef __linux__
-    sprintf(retezec, "%d", cislo);
-#elif _WIN32
+#ifdef _WIN32
     sprintf_s(retezec, delka, "%d", cislo);
+#else
+    sprintf(retezec, "%d", cislo);
 #endif
 }

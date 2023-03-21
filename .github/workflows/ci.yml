@@ -13,4 +13,6 @@ jobs:
       with:
         xmake-version: latest
     - name: Run build script
-      run: xmake
+      run: |
+        xrepo install -y libsdl pkgconf zlib freetype libsdl_ttf
+        xmake

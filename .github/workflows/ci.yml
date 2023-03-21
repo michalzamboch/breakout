@@ -1,0 +1,16 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+    name: Compile Breakout
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - uses: xmake-io/github-action-setup-xmake@v1
+      with:
+        xmake-version: latest
+    - name: Run build script
+      run: xmake

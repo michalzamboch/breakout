@@ -16,3 +16,8 @@ jobs:
       run: |
         xrepo install -y libsdl pkgconf zlib freetype libsdl_ttf
         xmake
+  
+  publish:
+    needs: [build]
+    steps:
+    - uses: actions/checkout@v1
